@@ -210,23 +210,12 @@ inline static void rx_isr(uint8_t n) {
 ISR(USART_RX_vect) {
   rx_isr(0);
 }
-#elif defined(SIG_USART0_RECV)
-ISR(SIG_USART0_RECV) {
-  rx_isr(0);
-}
-#elif defined(SIG_UART0_RECV)
-ISR(SIG_UART0_RECV) {
-  rx_isr(0);
-}
 #elif defined(USART0_RX_vect)
 ISR(USART0_RX_vect) {
   rx_isr(0);
 }
-#elif defined(SIG_UART_RECV)
-ISR(SIG_UART_RECV) {
-  rx_isr(0);
-}
 #endif  // vector USART0
+
 #ifdef USART1_RX_vect
 ISR(USART1_RX_vect) {
   rx_isr(1);
