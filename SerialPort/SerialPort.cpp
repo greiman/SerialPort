@@ -162,7 +162,7 @@ SerialRingBuffer::buf_size_t
  * @param[in] n number of bytes to transfer to the ring buffer.
  * @return number of bytes transferred.
  */
-SerialRingBuffer::buf_size_t SerialRingBuffer::put_P(PGM_P b, buf_size_t n) {
+SerialRingBuffer::buf_size_t SerialRingBuffer::put_P(const char* b PROGMEM, buf_size_t n) {
   cli();
   buf_size_t t = tail_;
   sei();
