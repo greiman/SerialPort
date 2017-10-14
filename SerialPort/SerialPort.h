@@ -261,7 +261,7 @@ class SerialRingBuffer {
   int peek();
   bool put(uint8_t b);
   buf_size_t put(const uint8_t* b, buf_size_t n);
-  buf_size_t put_P(PGM_P b, buf_size_t n);
+  buf_size_t put_P(const char* b PROGMEM, buf_size_t n);
  private:
   uint8_t* buf_;              /**< Pointer to start of buffer. */
   volatile buf_size_t head_;  /**< Index to next empty location. */
@@ -545,7 +545,7 @@ class SerialPort : public Stream {
    * @return The number of bytes written to the serial port.
    */
   __attribute__((noinline))
-  size_t write_P(PGM_P b, size_t n) {
+  size_t write_P(const char* b PROGMEM, size_t n) {
     if (!TxBufSize) {
       for (size_t i = 0; i < n; i++) write(pgm_read_byte(b + i));
     } else {
@@ -571,8 +571,8 @@ class SerialPort : public Stream {
    * @return The number of bytes written to the serial port.
    */
   __attribute__((noinline))
-  size_t write(const __FlashStringHelper* s) {
-    const char PROGMEM* p = (const char PROGMEM*)s;
+  size_t write(const __FlashStringHelper* s PROGMEM) {
+    const char* p PROGMEM = (const char PROGMEM*) s;
     size_t n = strlen_P(p);
     return write_P(p, n);
   }
@@ -584,7 +584,7 @@ class SerialPort : public Stream {
    * @return The number of bytes written to the serial port.
    */
   __attribute__((noinline))
-  size_t writeln(const __FlashStringHelper* s) {
+  size_t writeln(const __FlashStringHelper* s PROGMEM) {
     return write(s) + writeln();
   }
   #if USE_WRITE_OVERRIDES
