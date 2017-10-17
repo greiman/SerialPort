@@ -572,7 +572,7 @@ class SerialPort : public Stream {
    */
   __attribute__((noinline))
   size_t write(const __FlashStringHelper* s) {
-    const char PROGMEM* p = (const char PROGMEM*)s;
+    const char* p PROGMEM = (const char PROGMEM*)s;
     size_t n = strlen_P(p);
     return write_P(p, n);
   }
